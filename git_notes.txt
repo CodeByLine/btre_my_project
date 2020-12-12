@@ -1,9 +1,0 @@
-create new branch and push:
-    git push <remote-name> <local-branch-name>:<remote-branch-name>
-
-    (Remote-name: usually is "origin")
-    https://stackoverflow.com/questions/1519006/how-do-you-create-a-remote-git-branch
-
-git undo commit:
-
-    git reset <file>
