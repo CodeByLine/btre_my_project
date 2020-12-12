@@ -1,0 +1,12 @@
+******** To create a Django project: run Django admin ******** 
+
+    django-admin -help
+
+    ********  Choose Python interpreter for VENV
+
+
+********  django new project: 
+    
+    django-admin startproject btre .
+
+********  apps

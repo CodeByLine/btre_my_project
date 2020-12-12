@@ -1,0 +1,14 @@
+    ********  To set up VENV:  ********
+
+********  To install: In terminal, in project folder directory:
+
+    python3 -m venv ./venv
+
+
+********  To activate the environment-in terminal:
+
+    source ./venv/bin/activate
+
+********  To leave the VENV environment-in terminal:
+
+    deactivate
