@@ -1,0 +1,32 @@
+-- Create model Listing
+--
+CREATE TABLE 
+    "listings_listing" 
+        ("id" serial NOT NULL PRIMARY KEY, 
+        "title" varchar(200) NOT NULL, 
+        "address" varchar(200) NOT NULL, 
+        "city" varchar(100) NOT NULL, 
+        "state" varchar(100) NOT NULL, 
+        "zipcode" varchar(20) NOT NULL, 
+        "descripton" text NOT NULL, 
+        "price" integer NOT NULL, 
+        "bedrooms" integer NOT NULL, 
+        "bathrooms" numeric(2, 1) NOT NULL, 
+        "garage" integer NOT NULL, 
+        "sqft" integer NOT NULL, 
+        "lot_size" numeric(5, 1) NOT NULL, 
+        "photo_main" varchar(100) NOT NULL, 
+        "photo_1" varchar(100) NOT NULL, 
+        "photo_2" varchar(100) NOT NULL, 
+        "photo_3" varchar(100) NOT NULL, 
+        "photo_4" varchar(100) NOT NULL, 
+        "photo_5" varchar(100) NOT NULL, 
+        "photo_6" varchar(100) NOT NULL, 
+        "is_published" boolean NOT NULL, 
+        "list_date" timestamp with time zone NOT NULL, 
+        "realtor_id" integer NOT NULL);
+
+ALTER TABLE "listings_listing" 
+    ADD CONSTRAINT "listings_listing_realtor_id_90583529_fk_realtors_realtor_id" FOREIGN KEY ("realtor_id") REFERENCES "realtors_realtor" ("id") DEFERRABLE INITIALLY DEFERRED;
+CREATE INDEX "listings_listing_realtor_id_90583529" ON "listings_listing" ("realtor_id");
+COMMIT;
