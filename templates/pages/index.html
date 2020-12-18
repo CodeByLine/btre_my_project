@@ -4,7 +4,7 @@
 {% load static %}
 {% load humanize %}
 {% block content %}
-
+{% include 'partials/_alerts.html' %}
   <!-- Showcase -->
   <section id="showcase">
     <div class="container text-center">
@@ -67,6 +67,9 @@
       </div>
     </div>
   </section>
+
+  <!-- Alerts  -->
+  <!-- {% include 'partials/_alerts.html' %} -->
 
   <!-- Listings -->
   <section id="listings" class="py-5">

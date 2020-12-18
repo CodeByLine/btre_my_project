@@ -17,3 +17,6 @@
         'accounts.apps.AccountsConfig', ]
 
 5. in views.py, define the routes -- import 'redirect'
+
+#####  see 'notes_authentication-2 AND -3' for example on
+    preventing cross-site forgery using:    {% csrf_token %}
