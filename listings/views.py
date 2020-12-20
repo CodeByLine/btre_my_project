@@ -33,9 +33,8 @@ def search(request):
     if 'keywords' in request.GET:
         keywords = request.GET['keywords']
         if keywords:
-            queryset_list = queryset_list.filter(descripton__icontains=keywords)
-            # typo for description
-
+            queryset_list = queryset_list.filter(description__icontains=keywords)
+           
     #city:
     if 'city' in request.GET:
         city = request.GET['city']

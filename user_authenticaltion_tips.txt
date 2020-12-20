@@ -1,0 +1,208 @@
+***   user authenticaltion tips:   *** 
+        ***  fr Udemy course: Build a User Authentication Web App with Python and Django  ***
+
+
+##### in views.py #####
+
+    from django.contrib.auth import authenticate, login, logout
+    from django.contrib.auth.forms import UserCreationForm, UserCreationForm, PasswordChangeForm    # automated 
+    from .forms import SignUpForm, EditProfileForm       # created in forms.py
+
+
+    def login_user
+    def logout_user
+    
+
+    def register_user(request):
+        if request_method== 'POST':
+            form = UserCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                username = form.cleaned_data['username']
+                password = form.clearned_data['password1']
+                user = authenticate(username=username, password=password)  # This logs the user in.
+                login(request, user)
+                messages.success(request, ('You have registered successfully'))
+                return redirect('index')
+
+        else:
+           # form = UserCreationForm()
+            form = SignUpForm()         # if 'SignUpForm' is created in 'forms.py'
+
+    context = {'form': form}
+    return render(request, 'authenticate/register.html', context)
+
+
+####  in register.html  ####
+
+{% extends 'NAME OF THE AUTHENTICATION PAGE' %}
+
+{% block content %}
+
+<form method="POST" action = "{% url 'register' %}>
+    {% csrf_token %}
+    {% if form.errors %}
+        <p> Your form has errors </p>
+    {% endif %}
+
+    {% form.as_p %}         # 'form.as_p' neatly formats Djano's built-in form in paragraph form.
+    
+    # "form" refers back to the form in 'context' in 'views.py'
+
+<input type="submit" value="Register" class="btn btn-secondary">
+{% endblock %}
+
+
+####  forms.py  -- to extend built-in form features ####
+
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import User
+from django import forms
+
+class SignUpForm(UserCreationForm):
+    email = forms.EmailField()                       
+    first_name = forms.CharField(max_length=100)  
+    last_name = forms.CharField(max_length=100)
+
+    class Meta:
+        model = User 
+        fields = ('username', 'first_name', 'last_name', 'email', 'password', 'password2' )
+
+
+
+####  use Bootstrap styling with Django automatically generated forms  ####
+
+        class SignUpForm(UserCreationForm):
+            email = forms.EmailField(help_text="Enter your email" label="", widget=forms.TexInput(attrs={'class':'form-control'}, 'placeholder': 'Email Address'),)
+            first_name = forms.CharField(help_text='<STRONG> Enter your first name </STRONG>' label="", max_length=100, widget=forms.TextInput(attrs={'class':'form-control', 'placeholder'='password'}),)
+            last_name = forms.CharField(label="", max_length=100, , widget=forms.TextInput(attrs={'class':'form-control', 'placeholder': 'Confirm email'})))
+
+        class Meta:
+            model = User 
+            fields = ('username', 'first_name', 'last_name', 'email', 'password', 'password2' )
+
+### alternatives
+        def __init__(self, *args, **kwargs):
+            super(SignUpForm, self.__init__(*args, **kwargs))
+            self.fields['username'].widget.attrs['class'] = 'form-control'
+            self.fields['username'].widget.attrs['placeholder'] = 'User Name'       # add style
+            self.fields['username'].label = ''                                      # alt add style
+            self.fields['username'].help_text = '<span class="form-text text-muted"><small>Required. 150 max.</small></span>'                                                           # alt2 add style
+
+            self.fields['password1'].widget.attrs['class'] = 'form-control'
+            self.fields['password1'].label = ''
+            self.fields['password1'].widget.attrs['placeholder'] = 'password'
+            self.fields['password1'].help_text = '<span class="form-text text-muted small">Enter your password</span>'
+
+            self.fields['password2'].widget.attrs['class'] = 'form-control'
+            self.fields['password2'].label = ''
+            self.fields['password2'].widget.attrs['placeholder'] = 'Confirm password'
+            self.fields['password2'].help_text = '<span class="form-text text-muted small">Verify your password</small></span>'
+
+
+####  Form Validations  ####
+
+# checking for different errors:
+
+{% for field in form %}
+
+    {% if field.errors %}
+        {% field.errors %}   
+
+
+####  USER PROFILE  ####
+
+    ### in views.py ###
+    # 1. add:
+    from django.contrib.auth.forms import UserChangeForm          # automated approach
+    # 2. add:
+        def edit_profile(request):
+            return render(request, 'ProjectName/edit_profile.html', context)
+    # 3. add (in urls.py):
+        path('edit_profile/', views.edit_profile, name='edit_profile', {}),
+
+    # 4. create file 'edit_profile.html'
+        # copy from register.html
+        # change form action (from ['url 'register'] to ['url edit_profile'])
+
+    # 5. add link to navbar
+
+    # 6. add (copied from 'def register_user'):
+
+        def edit_profile(request):
+            if request_method== 'POST':
+                form = EditProfileForm(request.POST, instance=request.user)
+            if form.is_valid():
+                form.save()
+
+                login(request, user)
+                messages.success(request, ('You have edited your profile'))
+                return redirect('index')
+
+        else:
+            form = EditProfileForm(instance=request.user)
+
+        context = {'form': form}
+        return render(request, 'authenticate/edit_profile.html', context)
+
+
+    ####  CLEAN UP the Edit Profile page  ####
+
+    1. In 'forms.py': import 'UserChangeForm' & 'EditProfileForm':
+
+            from django.contrib.auth import authenticate, login, logout
+            from django.contrib.auth.forms import UserCreationForm, UserCreationForm, PasswordChangeForm        
+            from .forms import SignUpForm, EditProfileForm       
+
+    2. create class (in forms.py):
+
+    class EditProfileForm(UserChangeForm):
+
+        class Meta:
+            model = User
+            exclude = (fields = ('username', 'first_name', 'last_name', 'email', 'password', 'password2' ))        # method 1
+
+
+
+
+
+
+######  CHANGE PASSWORD  ######
+
+1. import PasswordChangeForm
+
+2. add path to urlpatterns: path('change_password', views.change_password, name='change_password')
+
+3. create file: change_password.html 
+    (copy from 'edit_profile.html')
+
+4. add link to navbar
+
+5. add (copy and edit 'edit_profile'):
+
+        def change_password(request): 
+            if request_method== 'POST':
+                form = PasswordChangeForm(data=request.POST, user=request.user)
+            if form.is_valid():
+                form.save()
+
+                login(request, user)
+                messages.success(request, ('You have changed your password'))
+                return redirect('index')
+
+        else:
+            form = EditProfileForm(user=request.user)
+
+        context = {'form': form}
+        return render(request, 'authenticate/change_password.html', context)
+
+
+    #### TO PREVENT AUTO LOGOUT WHEN PASSWORD CHANGE  ####
+
+    1. ADD to import: 'update_session_auth_hash'
+
+        from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
+
+        # in views.py, after 'form.save()', add:
+
+            update_session_auth_hash(request, form.user)
