@@ -151,10 +151,15 @@ MESSAGE_TAGS = {
     messages.ERROR: 'danger',
 }
 
-#EMAIL CONFIG
-
+# EMAIL CONFIG
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587            # varies-depends on smtp server
 EMAIL_HOST_USER='kittydeposit@gmail.com'          # Gmail username
 EMAIL_HOST_PASSWORD='#WuRtsb0r018'      # Gmail password
 EMAIL_USE_TLS=True          
+
+# FOR PRODUCTION   
+try: 
+    from .local_settings import *
+except ImportError:
+    pass
