@@ -90,15 +90,7 @@ DATABASES = {
         'HOST': 'localhost'
     }
 }
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'btredb',
-        'USER': 'coco21',
-        'PASSWORD': 'MoonTide7IFFY-add',
-        'HOST': 'localhost'
-    }
-}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
