@@ -20,6 +20,8 @@ notes_*.*
 .DS_Store
 .vscode/
 
+settings_copy.py 
+
 
 
 venv

@@ -25,10 +25,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = '9=4g4grie9+rtj31d3v-5ejzzm=r0s%gemk@^cxo5^z%k9zz0f'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -87,15 +86,6 @@ DATABASES = {
         'NAME': 'btredb',
         'USER': 'postgres',
         'PASSWORD': 'woof',
-        'HOST': 'localhost'
-    }
-}
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'btredb',
-        'USER': 'coco21',
-        'PASSWORD': 'MoonTide7IFFY-add',
         'HOST': 'localhost'
     }
 }
